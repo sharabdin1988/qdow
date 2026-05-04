@@ -61,6 +61,14 @@ SURAH_DATA = [
     (112, "Al-Ikhlas", 4), (113, "Al-Falaq", 5), (114, "An-Nas", 6)
 ]
 
+# Mapping of special ayah names
+SPECIAL_NAMES = {
+    "2:255": "Ayatul_Kursi",
+    "2:285-286": "Amanar_Rasul",
+    "24:35": "Ayatul_Nur",
+    "1:1-7": "Al-Fatihah_Complete"
+}
+
 def load_config():
     if os.path.exists(CONFIG_FILE):
         try:
@@ -84,6 +92,9 @@ def print_surah_list():
                 idx, name, count = SURAH_DATA[i+j]
                 line += f"{str(idx).rjust(3)}. {name.ljust(18)} ({count} ayahs)".ljust(35)
         print(line)
+    print("\nSPECIAL VERSES:")
+    for key, val in SPECIAL_NAMES.items():
+        print(f"  {key.ljust(10)} -> {val}")
     print("="*50)
 
 def select_reciter():
@@ -130,14 +141,19 @@ def process_request(request, reciter):
         idx, name, count = SURAH_DATA[s_idx - 1]
         s_num = surah_part.zfill(3)
 
+        special_suffix = ""
+        key = f"{s_idx}:{ayah_part}"
+        if key in SPECIAL_NAMES:
+            special_suffix = f"_{SPECIAL_NAMES[key]}"
+
         if "-" in ayah_part:
             start_a, end_a = map(int, ayah_part.split("-"))
             ayahs = range(start_a, end_a + 1)
-            output_name = f"{name}_{start_a}-{end_a}.mp3"
+            output_name = f"{name}_{ayah_part}{special_suffix}.mp3"
         else:
             ayah_at = int(ayah_part)
             ayahs = [ayah_at]
-            output_name = f"{name}_{ayah_at}.mp3"
+            output_name = f"{name}_{ayah_at}{special_suffix}.mp3"
 
         temp_files = []
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -149,8 +165,10 @@ def process_request(request, reciter):
                 if download_file(url, tmp_path): temp_files.append(tmp_path)
                 else: print(f"⚠️ Ayah {a} not found")
 
-            if len(temp_files) > 1: merge_and_tag(temp_files, output_name, reciter['name'], f"Surah {name}")
-            elif len(temp_files) == 1: tag_single_file(temp_files[0], output_name, reciter['name'], f"Surah {name}")
+            if len(temp_files) > 1:
+                merge_and_tag(temp_files, output_name, reciter['name'], f"Surah {name}")
+            elif len(temp_files) == 1:
+                tag_single_file(temp_files[0], output_name, reciter['name'], f"Surah {name}")
     except Exception as e: print(f"❌ Error: {e}")
 
 if __name__ == "__main__":
