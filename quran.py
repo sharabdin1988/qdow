@@ -19,51 +19,54 @@ RECITERS = [
     {"name": "Abdur-Rahman as-Sudais", "path": "Sudais_128kbps"},
 ]
 
+# Surah data with English names and Ayah counts
 SURAH_DATA = [
-    (1, "Al-Fatihah", "Аль-Фатиха"), (2, "Al-Baqarah", "Аль-Бакара"), (3, "Ali-Imran", "Али Имран"),
-    (4, "An-Nisa", "Ан-Ниса"), (5, "Al-Maidah", "Аль-Маида"), (6, "Al-Anam", "Аль-Анам"),
-    (7, "Al-Araf", "Аль-Араф"), (8, "Al-Anfal", "Аль-Анфаль"), (9, "At-Tawbah", "Ат-Тауба"),
-    (10, "Yunus", "Юнус"), (11, "Hud", "Худ"), (12, "Yusuf", "Юсуф"),
-    (13, "Ar-Rad", "Ар-Раад"), (14, "Ibrahim", "Ибрахим"), (15, "Al-Hijr", "Аль-Хиджр"),
-    (16, "An-Nahl", "Ан-Нахль"), (17, "Al-Isra", "Аль-Исра"), (18, "Al-Kahf", "Аль-Кахф"),
-    (19, "Maryam", "Марьям"), (20, "Ta-Ha", "Та Ха"), (21, "Al-Anbiya", "Аль-Анбия"),
-    (22, "Al-Hajj", "Аль-Хадж"), (23, "Al-Mu-minun", "Аль-Муминун"), (24, "An-Nur", "Ан-Нур"),
-    (25, "Al-Furqan", "Аль-Фуркан"), (26, "Ash-Shuara", "Аш-Шуара"), (27, "An-Naml", "Ан-Намль"),
-    (28, "Al-Qasas", "Аль-Касас"), (29, "Al-Ankabut", "Аль-Анкабут"), (30, "Ar-Rum", "Ар-Рум"),
-    (31, "Luqman", "Лукман"), (32, "As-Sajdah", "Ас-Саджда"), (33, "Al-Ahzab", "Аль-Ахзаб"),
-    (34, "Saba", "Саба"), (35, "Fatir", "Фатыр"), (36, "Ya-Sin", "Йа Син"),
-    (37, "As-Saffat", "Ас-Саффат"), (38, "Sad", "Сад"), (39, "Az-Zumar", "Аз-Зумар"),
-    (40, "Ghafir", "Гафир"), (41, "Fussilat", "Фуссилат"), (42, "Ash-Shura", "Аш-Шура"),
-    (43, "Az-Zukhruf", "Аз-Зухруф"), (44, "Ad-Dukhan", "Ад-Духан"), (45, "Al-Jathiyah", "Аль-Джасия"),
-    (46, "Al-Ahqaf", "Аль-Ахкаф"), (47, "Muhammad", "Мухаммад"), (48, "Al-Fath", "Аль-Фатх"),
-    (49, "Al-Hujurat", "Аль-Худжурат"), (50, "Qaf", "Каф"), (51, "Adh-Dhariyat", "Аз-Зарият"),
-    (52, "At-Tur", "Ат-Тур"), (53, "An-Najm", "Ан-Наджм"), (54, "Al-Qamar", "Аль-Камар"),
-    (55, "Ar-Rahman", "Ар-Рахман"), (56, "Al-Waqiah", "Аль-Вакыа"), (57, "Al-Hadid", "Аль-Хадид"),
-    (58, "Al-Mujadilah", "Аль-Муджадиля"), (59, "Al-Hashr", "Аль-Хашр"), (60, "Al-Mumtahanah", "Аль-Мумтахана"),
-    (61, "As-Saff", "Ас-Сафф"), (62, "Al-Jumuah", "Аль-Джумуа"), (63, "Al-Munafiqun", "Аль-Мунафикун"),
-    (64, "At-Taghabun", "Ат-Тагабун"), (65, "At-Talaq", "Ат-Таляк"), (66, "At-Tahrim", "Ат-Тахрим"),
-    (67, "Al-Mulk", "Аль-Мульк"), (68, "Al-Qalam", "Аль-Калям"), (69, "Al-Haqqah", "Аль-Хакка"),
-    (70, "Al-Maarij", "Аль-Мааридж"), (71, "Nuh", "Нух"), (72, "Al-Jinn", "Аль-Джинн"),
-    (73, "Al-Muzzammil", "Аль-Муззаммиль"), (74, "Al-Muddaththir", "Аль-Муддассир"), (75, "Al-Qiyamah", "Аль-Кыяма"),
-    (76, "Al-Insan", "Аль-Инсан"), (77, "Al-Mursalat", "Аль-Мурсалят"), (78, "An-Naba", "Ан-Наба"),
-    (79, "An-Nazi-at", "Ан-Назиат"), (80, "Abasa", "Абаса"), (81, "At-Takwir", "Ат-Таквир"),
-    (82, "Al-Infitar", "Аль-Инфитар"), (83, "Al-Mutaffifin", "Аль-Мутаффифин"), (84, "Al-Inshiqaq", "Аль-Иншикак"),
-    (85, "Al-Buruj", "Аль-Бурудж"), (86, "At-Tariq", "Ат-Тарик"), (87, "Al-A-la", "Аль-Аля"),
-    (88, "Al-Ghashiyah", "Аль-Гашия"), (89, "Al-Fajr", "Аль-Фаджр"), (90, "Al-Balad", "Аль-Баляд"),
-    (91, "Ash-Shams", "Аш-Шамс"), (92, "Al-Layl", "Аль-Ляйль"), (93, "Ad-Duha", "Ад-Духа"),
-    (94, "Ash-Sharh", "Аш-Шарх"), (95, "At-Tin", "Ат-Тин"), (96, "Al-Alaq", "Аль-Аляк"),
-    (97, "Al-Qadr", "Аль-Кадр"), (98, "Al-Bayyinah", "Аль-Баййина"), (99, "Az-Zalzalah", "Аз-Зальзаля"),
-    (100, "Al-Adiyat", "Аль-Адият"), (101, "Al-Qari-ah", "Аль-Кариа"), (102, "At-Takathur", "Ат-Такасур"),
-    (103, "Al-Asr", "Аль-Аср"), (104, "Al-Humazah", "Аль-Хумаза"), (105, "Al-Fil", "Аль-Филь"),
-    (106, "Quraysh", "Курайш"), (107, "Al-Ma-un", "Аль-Маун"), (108, "Al-Kawthar", "Аль-Каусар"),
-    (109, "Al-Kafirun", "Аль-Кяфирун"), (110, "An-Nasr", "Ан-Наср"), (111, "Al-Masad", "Аль-Масад"),
-    (112, "Al-Ikhlas", "Аль-Ихлас"), (113, "Al-Falaq", "Аль-Фаляк"), (114, "An-Nas", "Ан-Нас")
+    (1, "Al-Fatihah", 7), (2, "Al-Baqarah", 286), (3, "Ali-Imran", 200),
+    (4, "An-Nisa", 176), (5, "Al-Maidah", 120), (6, "Al-Anam", 165),
+    (7, "Al-Araf", 206), (8, "Al-Anfal", 75), (9, "At-Tawbah", 129),
+    (10, "Yunus", 109), (11, "Hud", 123), (12, "Yusuf", 111),
+    (13, "Ar-Rad", 43), (14, "Ibrahim", 52), (15, "Al-Hijr", 99),
+    (16, "An-Nahl", 128), (17, "Al-Isra", 111), (18, "Al-Kahf", 110),
+    (19, "Maryam", 98), (20, "Ta-Ha", 135), (21, "Al-Anbiya", 112),
+    (22, "Al-Hajj", 78), (23, "Al-Mu-minun", 118), (24, "An-Nur", 64),
+    (25, "Al-Furqan", 77), (26, "Ash-Shuara", 227), (27, "An-Naml", 93),
+    (28, "Al-Qasas", 88), (29, "Al-Ankabut", 69), (30, "Ar-Rum", 60),
+    (31, "Luqman", 34), (32, "As-Sajdah", 30), (33, "Al-Ahzab", 73),
+    (34, "Saba", 54), (35, "Fatir", 45), (36, "Ya-Sin", 83),
+    (37, "As-Saffat", 182), (38, "Sad", 88), (39, "Az-Zumar", 75),
+    (40, "Ghafir", 85), (41, "Fussilat", 54), (42, "Ash-Shura", 53),
+    (43, "Az-Zukhruf", 89), (44, "Ad-Dukhan", 59), (45, "Al-Jathiyah", 37),
+    (46, "Al-Ahqaf", 35), (47, "Muhammad", 38), (48, "Al-Fath", 29),
+    (49, "Al-Hujurat", 18), (50, "Qaf", 45), (51, "Adh-Dhariyat", 60),
+    (52, "At-Tur", 49), (53, "An-Najm", 62), (54, "Al-Qamar", 55),
+    (55, "Ar-Rahman", 78), (56, "Al-Waqiah", 96), (57, "Al-Hadid", 29),
+    (58, "Al-Mujadilah", 22), (59, "Al-Hashr", 24), (60, "Al-Mumtahanah", 13),
+    (61, "As-Saff", 14), (62, "Al-Jumuah", 11), (63, "Al-Munafiqun", 11),
+    (64, "At-Taghabun", 18), (65, "At-Talaq", 12), (66, "At-Tahrim", 12),
+    (67, "Al-Mulk", 30), (68, "Al-Qalam", 52), (69, "Al-Haqqah", 52),
+    (70, "Al-Maarij", 44), (71, "Nuh", 28), (72, "Al-Jinn", 28),
+    (73, "Al-Muzzammil", 20), (74, "Al-Muddaththir", 56), (75, "Al-Qiyamah", 40),
+    (76, "Al-Insan", 31), (77, "Al-Mursalat", 50), (78, "An-Naba", 40),
+    (79, "An-Nazi-at", 46), (80, "Abasa", 42), (81, "At-Takwir", 29),
+    (82, "Al-Infitar", 19), (83, "Al-Mutaffifin", 36), (84, "Al-Inshiqaq", 25),
+    (85, "Al-Buruj", 22), (86, "At-Tariq", 17), (87, "Al-A-la", 19),
+    (88, "Al-Ghashiyah", 26), (89, "Al-Fajr", 30), (90, "Al-Balad", 20),
+    (91, "Ash-Shams", 15), (92, "Al-Layl", 21), (93, "Ad-Duha", 11),
+    (94, "Ash-Sharh", 8), (95, "At-Tin", 8), (96, "Al-Alaq", 19),
+    (97, "Al-Qadr", 5), (98, "Al-Bayyinah", 8), (99, "Az-Zalzalah", 8),
+    (100, "Al-Adiyat", 11), (101, "Al-Qari-ah", 11), (102, "At-Takathur", 8),
+    (103, "Al-Asr", 3), (104, "Al-Humazah", 9), (105, "Al-Fil", 5),
+    (106, "Quraysh", 4), (107, "Al-Ma-un", 7), (108, "Al-Kawthar", 3),
+    (109, "Al-Kafirun", 6), (110, "An-Nasr", 3), (111, "Al-Masad", 5),
+    (112, "Al-Ikhlas", 4), (113, "Al-Falaq", 5), (114, "An-Nas", 6)
 ]
 
 def load_config():
     if os.path.exists(CONFIG_FILE):
-        with open(CONFIG_FILE, 'r') as f:
-            return json.load(f)
+        try:
+            with open(CONFIG_FILE, 'r') as f:
+                return json.load(f)
+        except: pass
     return {"reciter_idx": 0}
 
 def save_config(config):
@@ -71,26 +74,29 @@ def save_config(config):
         json.dump(config, f)
 
 def print_surah_list():
-    print("\n--- Список Сур ---")
-    for i in range(0, len(SURAH_DATA), 3):
+    print("\n" + "="*50)
+    print("SURAH LIST (Number: Name [Ayahs])")
+    print("="*50)
+    for i in range(0, len(SURAH_DATA), 2):
         line = ""
-        for j in range(3):
+        for j in range(2):
             if i + j < len(SURAH_DATA):
-                idx, eng, rus = SURAH_DATA[i+j]
-                line += f"{str(idx).ljust(3)} {rus.ljust(15)} | "
+                idx, name, count = SURAH_DATA[i+j]
+                line += f"{str(idx).rjust(3)}. {name.ljust(18)} ({count} ayahs)".ljust(35)
         print(line)
+    print("="*50)
 
 def select_reciter():
-    print("\n--- Выбор чтеца ---")
+    print("\n--- SELECT RECITER ---")
     for i, r in enumerate(RECITERS):
         print(f"{i}: {r['name']}")
     try:
-        choice = int(input("\nВыберите номер чтеца: "))
+        choice = int(input("\nChoice: "))
         if 0 <= choice < len(RECITERS):
             save_config({"reciter_idx": choice})
-            print(f"✅ Выбран чтец: {RECITERS[choice]['name']}")
-        else: print("❌ Неверный номер.")
-    except ValueError: print("❌ Введите число.")
+            print(f"✅ Selected: {RECITERS[choice]['name']}")
+        else: print("❌ Invalid number.")
+    except ValueError: print("❌ Enter a number.")
 
 def download_file(url, path):
     try:
@@ -99,19 +105,19 @@ def download_file(url, path):
     except: return False
 
 def merge_and_tag(files, output_path, reciter_name, album_name):
-    print(f"🔄 Склеиваю и добавляю теги...")
+    print(f"🔄 Merging and adding tags...")
     with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
         for file in files: f.write(f"file '{os.path.abspath(file)}'\n")
         list_path = f.name
     try:
         subprocess.run(['ffmpeg', '-y', '-f', 'concat', '-safe', '0', '-i', list_path, '-metadata', f'artist={reciter_name}', '-metadata', f'album={album_name}', '-c', 'copy', output_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        print(f"✅ Сохранено: {os.path.abspath(output_path)}")
+        print(f"✅ Success: {os.path.abspath(output_path)}")
     finally: os.unlink(list_path)
 
 def tag_single_file(input_path, output_path, reciter_name, album_name):
     try:
         subprocess.run(['ffmpeg', '-y', '-i', input_path, '-metadata', f'artist={reciter_name}', '-metadata', f'album={album_name}', '-c', 'copy', output_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        print(f"✅ Сохранено: {os.path.abspath(output_path)}")
+        print(f"✅ Success: {os.path.abspath(output_path)}")
     except: pass
 
 def process_request(request, reciter):
@@ -121,16 +127,17 @@ def process_request(request, reciter):
         s_idx = int(surah_part)
         if not (1 <= s_idx <= 114): return
         
-        _, eng_name, rus_name = SURAH_DATA[s_idx - 1]
+        idx, name, count = SURAH_DATA[s_idx - 1]
         s_num = surah_part.zfill(3)
 
         if "-" in ayah_part:
             start_a, end_a = map(int, ayah_part.split("-"))
             ayahs = range(start_a, end_a + 1)
-            output_name = f"{eng_name}_{start_a}-{end_a}.mp3"
+            output_name = f"{name}_{start_a}-{end_a}.mp3"
         else:
-            ayahs = [int(ayah_part)]
-            output_name = f"{eng_name}_{ayah_part}.mp3"
+            ayah_at = int(ayah_part)
+            ayahs = [ayah_at]
+            output_name = f"{name}_{ayah_at}.mp3"
 
         temp_files = []
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -138,13 +145,13 @@ def process_request(request, reciter):
                 a_str = str(a).zfill(3)
                 url = f"https://mirrors.quranicaudio.com/everyayah/{reciter['path']}/{s_num}{a_str}.mp3"
                 tmp_path = os.path.join(tmpdir, f"{a_str}.mp3")
-                print(f"⬇️  Загрузка: {rus_name} ({surah_part}:{a})...")
+                print(f"⬇️  Downloading: {name} ({surah_part}:{a})...")
                 if download_file(url, tmp_path): temp_files.append(tmp_path)
-                else: print(f"⚠️ Аят {a} не найден")
+                else: print(f"⚠️ Ayah {a} not found")
 
-            if len(temp_files) > 1: merge_and_tag(temp_files, output_name, reciter['name'], f"Сура {rus_name}")
-            elif len(temp_files) == 1: tag_single_file(temp_files[0], output_name, reciter['name'], f"Сура {rus_name}")
-    except Exception as e: print(f"❌ Ошибка: {e}")
+            if len(temp_files) > 1: merge_and_tag(temp_files, output_name, reciter['name'], f"Surah {name}")
+            elif len(temp_files) == 1: tag_single_file(temp_files[0], output_name, reciter['name'], f"Surah {name}")
+    except Exception as e: print(f"❌ Error: {e}")
 
 if __name__ == "__main__":
     config = load_config()
@@ -156,8 +163,8 @@ if __name__ == "__main__":
         else:
             for arg in sys.argv[1:]: process_request(arg, reciter)
     else:
-        print(f"🎙 Чтец: {reciter['name']}")
-        print("Команды: 2:255, 2:285-286, list (список сур), --reciter, exit")
+        print(f"🎙 Reciter: {reciter['name']}")
+        print("Commands: 2:255, 2:285-286, list, --reciter, exit")
         while True:
             val = input("\nqdow > ").strip()
             if val.lower() == 'exit': break
