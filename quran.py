@@ -78,21 +78,41 @@ def download_file(url, path):
         print(f"❌ Ошибка при загрузке {url}: {e}")
         return False
 
-def merge_files(files, output_path):
+def merge_and_tag(files, output_path, reciter_name, album_name="Quran"):
     if not files:
         return
-    print(f"🔄 Склеиваю {len(files)} аятов...")
+    print(f"🔄 Склеиваю и добавляю информацию об авторе ({reciter_name})...")
+    
     with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as f:
         for file in files:
             f.write(f"file '{os.path.abspath(file)}'\n")
         list_path = f.name
+    
     try:
-        subprocess.run(['ffmpeg', '-y', '-f', 'concat', '-safe', '0', '-i', list_path, '-c', 'copy', output_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        print(f"✅ Сохранено: {os.path.abspath(output_path)}")
+        # Склеиваем и добавляем метаданные (Artist, Album)
+        subprocess.run([
+            'ffmpeg', '-y', '-f', 'concat', '-safe', '0', '-i', list_path,
+            '-metadata', f'artist={reciter_name}',
+            '-metadata', f'album={album_name}',
+            '-c', 'copy', output_path
+        ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        print(f"✅ Сохранено с метаданными: {os.path.abspath(output_path)}")
     finally:
         os.unlink(list_path)
 
-def process_request(request, reciter_path):
+def tag_single_file(input_path, output_path, reciter_name, album_name="Quran"):
+    try:
+        subprocess.run([
+            'ffmpeg', '-y', '-i', input_path,
+            '-metadata', f'artist={reciter_name}',
+            '-metadata', f'album={album_name}',
+            '-c', 'copy', output_path
+        ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        print(f"✅ Сохранено с метаданными: {os.path.abspath(output_path)}")
+    except Exception as e:
+        print(f"❌ Ошибка при добавлении метаданных: {e}")
+
+def process_request(request, reciter):
     try:
         if ":" not in request: return
         surah_part, ayah_part = request.split(":")
@@ -112,16 +132,16 @@ def process_request(request, reciter_path):
         with tempfile.TemporaryDirectory() as tmpdir:
             for a in ayahs:
                 a_str = str(a).zfill(3)
-                url = f"https://mirrors.quranicaudio.com/everyayah/{reciter_path}/{s_num}{a_str}.mp3"
+                url = f"https://mirrors.quranicaudio.com/everyayah/{reciter['path']}/{s_num}{a_str}.mp3"
                 tmp_path = os.path.join(tmpdir, f"{a_str}.mp3")
                 print(f"⬇️  Загрузка {surah_name} {surah_part}:{a}...")
                 if download_file(url, tmp_path): temp_files.append(tmp_path)
 
-            if len(temp_files) > 1: merge_files(temp_files, output_name)
+            if len(temp_files) > 1:
+                merge_and_tag(temp_files, output_name, reciter['name'], f"Surah {surah_name}")
             elif len(temp_files) == 1:
-                import shutil
-                shutil.copy(temp_files[0], output_name)
-                print(f"✅ Сохранено: {os.path.abspath(output_name)}")
+                tag_single_file(temp_files[0], output_name, reciter['name'], f"Surah {surah_name}")
+                
     except Exception as e: print(f"❌ Ошибка: {e}")
 
 if __name__ == "__main__":
@@ -134,7 +154,7 @@ if __name__ == "__main__":
         else:
             print(f"🎙 Чтец: {reciter['name']}")
             for arg in sys.argv[1:]:
-                process_request(arg, reciter['path'])
+                process_request(arg, reciter)
     else:
         print(f"--- Загрузчик Quran (Текущий чтец: {reciter['name']}) ---")
         print("Команды: 2:255, 2:285-286, --reciter (сменить чтеца), exit")
@@ -142,4 +162,4 @@ if __name__ == "__main__":
             val = input("\nВведите запрос: ").strip()
             if val.lower() == 'exit': break
             if val == '--reciter': select_reciter(); config = load_config(); reciter = RECITERS[config['reciter_idx']]
-            else: process_request(val, reciter['path'])
+            else: process_request(val, reciter)
